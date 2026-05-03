@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COFFE SHOP | About</title>
+          <style>
+          body {
+            margin: 0;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            line-height: 1.6;
+            background: url("images/bg-coffee-shop.jpg") no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: scroll;
+            color: #3A2E2A;
+          }
+
+          .container {
+            max-width: 1200px;
+            background: url("images/bg-coffee-shop.jpg") no-repeat center center fixed;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: auto;
+            padding: 20px;
+          }
+
+          header {
+            background-color: #C8A27A;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+          }
+
+          nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .shop-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+          }
+
+          .logo {
+            height: 70px;
+          }
+
+          .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+          }
+
+          .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            position: relative;
+          }
+
+          .nav-links li a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background-color: #3A2E2A;
+            transition: width 0.3s;
+          }
+
+          .nav-links li a:hover::after {
+            width: 100%;
+          }
+
+         .dropdown {
+            position: relative;
+            }
+
+          .dropdown .drop-btn {
+            cursor: pointer;
+            display: inline-block;
+            }
+
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #C8A27A; 
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+            }
+
+            .dropdown-content li {
+            list-style: none;
+            }
+
+            .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            }
+
+            .dropdown-content a:hover {
+            background-color: #a6784d;
+            }
+
+            .dropdown:hover .dropdown-content {
+            display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+            color: #3A2E2A;
+            transition: color 0.3s ease;
+            }
+
+          .about-banner {
+            position: relative;
+            text-align: center;
+            color: #fff;
+          }
+
+          .banner-img {
+            width: 100%;
+            height: 60vh;
+            object-fit: cover;
+          }
+
+          .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+          }
+
+          .banner-text h1 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .banner-text p {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 1.2rem;
+          }
+
+          main {
+            margin: 40px 0;
+            padding: 0 20px;
+          }
+
+          section h2 {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #A47148;
+            margin-top: 30px;
+          }
+
+          section p {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin-bottom: 20px;
+          }
+
+          .about-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 8%;
+          }
+
+          .about-card {
+            background: #fffaf5;
+            color: #4a2c2a;
+            padding: 2rem;
+            border-radius: 2rem 0 2rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+          }
+
+          .about-card h2 {
+            color: #3c1f1e;
+            margin-bottom: 1rem;
+          }
+
+          ul {
+            list-style: none;
+            padding: 0;
+          }
+
+          ul li {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+          }
+
+          ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            color: #A47148;
+          }
+
+          .welcome-card{
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          .welcome-card:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+          }
+
+          .welcome-card h1{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 2.5rem;
+            color: #5A3825;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            text-transform: capitalize;
+            position: relative;
+          }
+
+          .welcome-card h1::after{
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #A47148;
+            margin: 0.8rem auto 1rem;
+            border-radius: 2px;
+          }
+
+          .welcome-card p{
+            color: #3A2E2A;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin: 0 auto;
+            max-width: 750px;
+            text-align: justify;  
+          }
+
+          #mission-vision {
+            padding: 4rem 10%;
+             margin-bottom: 5rem;
+            background: rgba(255, 255, 255, 0.92);
+            color: #3a2e2a;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+          #mission-vision h2 {
+            font-size: 2.2rem;
+            color: #A47148;
+            font-family: Georgia, 'Times New Roman', serif;
+            margin-bottom: 2rem;
+            position: relative;
+          }
+
+          #mission-vision h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #C8A27A;
+            margin: 1rem auto;
+            border-radius: 2px;
+          }
+
+          .mvv {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            text-align: left;
+          }
+
+          .mvv h3 {
+            color: #5a3825;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .mvv p, .mvv ul {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #3a2e2a;
+          }
+
+          #sustainability {
+            padding: 4rem 10%;
+            background: #fffaf5;
+            color: #3a2e2a;
+          }
+
+          #sustainability h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #A47148;
+            margin-bottom: 2rem;
+            font-family: Georgia, 'Times New Roman', serif;
+          }
+
+          #sustainability h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #C8A27A; 
+            margin: 1rem auto 0;
+            border-radius: 2px;
+          }
+
+
+          #sustainability p {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+          }
+
+          .impact-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+          }
+
+          .impact-points div {
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 4px solid #A47148;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+          }
+
+          .impact-points div:hover {
+            transform: translateY(-5px);
+          }
+
+          .impact-points h4 {
+            color: #5a3825;
+            margin-bottom: 0.5rem;
+          }
+
+          .impact-points p {
+            color: #3a2e2a;
+            font-size: 1.05rem;
+            line-height: 1.7;
+          }
+
+          footer{
+            background: #A47148;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-left h3 {
+            color: #3A2E2A;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .footer-left p {
+            color: #fff;
+            font-size: 0.9rem;
+            max-width: 300px;
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-social img {
+            width: 45px;
+            height: 45px;
+            background: #C8A27A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            background: #E6B980;
+            transform: translateY(-3px);
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;    
+        }
+
+        .footer-btn {
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .footer-btn.primary {
+            background: transparent;
+            border: 2px solid #C8A27A;
+            color: #fff;
+        }
+
+        .footer-btn.primary:hover {
+            background: #3A2E2A;
+            color: #3A2E2A;
+        }
+
+        .footer-btn.secondary {
+            background: #C8A27A;
+            color: #fff;
+            border: 2px solid #C8A27A;
+        }
+
+        .footer-btn.secondary:hover {
+            background: #E6B980;
+            border-color: #E6B980;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 162, 122, 0.3);
+            margin-top: 20px;
+            color: #E6B980;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            color: #fff;
+            margin: 0;
+        }
+
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+        }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+
+            .footer-left p {
+                max-width: 100%;
+            }
+
+            .footer-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+    <div class="container">
+    <header>
+        <nav>
+            <div class="brand">
+            <a href="index.html">
+            <img src="images/logo.png" alt="Coffee Shop Logo" class="logo">
+            </a>
+            <span class="shop-name">THE COFFEE SHOP</span>
+            </div>
+        <ul class="nav-links">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+
+            <li class="dropdown">
+              <a href="menu.html" class="drop-btn">MENU▼</a>
+              <ul class="dropdown-content">
+                <li><a href="menu.html#coffee-menu">Coffee</a></li>
+                <li><a href="menu.html#tea-menu">Tea</a></li>
+                <li><a href="menu.html#pastries-menu">Pastries</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+            <a href="gallery.html" class="drop-btn">GALLERY▼</a>
+            <ul class="dropdown-content">
+                <li><a href="gallery.html#cafe-interior">Cafe Interior</a></li>
+                <li><a href="gallery.html#events">Events And Specials</a></li>
+                <li><a href="gallery.html#menu-highlights">Menu Highlights</a></li>
+            </ul>
+            </li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="order.html">ORDER NOW</a></li>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-banner">
+            <img src="images/about-banner.jpg" alt="Coffee shop interior" class="banner-img">
+            <div class="banner-text">
+            <h1>About Us</h1>
+            <p>From bean to cup, our journey is about people, passion and the perfect pour. More than coffee it's where friendships brew, stories begin and every sip feels like home.</p>
+        </div>
+        </section>
+
+        <section id="about-us">
+          <div class="welcome-card">
+        <h1>Welcome to Our Cozy Coffee Corner!</h1>
+        <p>Step inside and let the rich aroma of freshly brewed coffee greet you. Our journey began in 2020, inspired by a simple idea: to create a place where coffee lovers feel at home, sip by sip.
+            We're not just about coffee we're about "experiences". Imagine curling up with your favorite book, meeting friends for a chat, or just enjoying a quiet moment in our warm, welcoming atmosphere. That's what we aim to offer every single day.</p>
+          </div>
+        
+         <div class="about-columns">
+        <div class="about-card">
+          <img src="images/our-story.jpg" alt="Coffee beans" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h2>Our Story</h2>
+        <p>From humble beginnings in a tiny corner of Kampala to becoming a community hub, our coffee shop has always been fueled by passion. Every cup tells a story from the farmers who grow our organic beans to the baristas who craft each drink with care and precision.
+            We love experimenting! Seasonal drinks, latte art competitions, and fun coffee flavors keep our menu exciting. And yes, our customers often inspire our specials your next favorite drink could be created by YOU!</p>
+        </div>
+
+        <div class="about-card">
+          <img src="images/our-team.jpg" alt="Our team of baristas" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+        <h2>Meet Our Team</h2>
+        <p>Our team is a bunch of coffee enthusiasts who love what they do. From friendly baristas who greet you with a smile to pastry chefs who bake heavenly treats every morning, we're all about making your visit memorable.
+            Fun fact: Some of our baristas have mastered latte art that looks like flowers, animals, or even famous landmarks. Come see if your cup has a surprise in it!</p>
+        </div>
+
+        <div class="about-card">
+        <h2>Why You'll Love Us</h2>
+        <ul>
+          <li><img src="images/icon-coffee.jpg" alt="Coffee" style="width:24px; vertical-align:middle; margin-right:8px;"> Freshly brewed coffee every single day</li>
+          <li><img src="images/icon-pastry.jpg" alt="Pastries" style="width:24px; vertical-align:middle; margin-right:8px;"> Homemade pastries and snacks baked with love</li>
+          <li><img src="images/icon-leaf.jpg" alt="Organic beans" style="width:24px; vertical-align:middle; margin-right:8px;"> Locally sourced organic beans</li>
+          <li><img src="images/icon-wifi.jpg" alt="WiFi" style="width:24px; vertical-align:middle; margin-right:8px;"> A cozy, welcoming environment perfect for work or chill time</li>
+        </ul>
+
+        <p>Whether you're here for a quick caffeine fix or a long, relaxing afternoon, we can't wait to welcome you. Pop by, say hi, and let's make your coffee experience unforgettable!</p>
+    </div>
+  </div>
+    </section>
+
+      <section id="mission-vision">
+      <h2>Our Mission, Vision & Values</h2>
+      <div class="mvv">
+        <div class="mvv-item">
+          <h3>Our Mission</h3>
+          <p>To serve freshly brewed coffee that connects people, inspires creativity and celebrates community moments with every sip.</p>
+        </div>
+
+        <div class="mvv-item">
+          <h3>Our Vision</h3>
+          <p>To become Uganda's most loved neighborhood coffee shop where every cup feels like home and every visit creates a memory.</p>
+        </div>
+        
+        <div class="mvv-item">
+          <h3>Our Values</h3>
+          <ul>
+            <li>☕ Passion for quality</li>
+            <li>🌍 Sustainability and care for nature</li>
+            <li>💬 Warm hospitality</li>
+            <li>🤝 Community support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+      <section id="sustainability">
+    <h2>Our Community & Sustainability Efforts</h2>
+    <p>We believe that a great cup of coffee should make a positive impact from bean to cup. That's why we work closely with local farmers, support eco-friendly initiatives and host community events that give back to the people around us.</p>
+    
+    <div class="impact-points">
+      <div>
+        <h4>🌱 Supporting Local Farmers</h4>
+        <p>Our beans come directly from smallholder farmers who use organic and sustainable practices. Each purchase helps support their families and communities.</p>
+      </div>
+
+      <div>
+        <h4>🚯 Eco-Friendly Packaging</h4>
+        <p>We've replaced all single-use plastics with biodegradable packaging because we believe your coffee shouldn't cost the planet.</p>
+      </div>
+
+      <div>
+        <h4>🤝 Giving Back</h4>
+        <p>We host “Coffee for a Cause” weekends, donating a portion of our sales to local charities and youth programs.</p>
+      </div>
+    </div>
+    </section>
+   </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Coffee Shop</h3>
+                <p>Experience the perfect blend of quality and comfort in every cup</p>
+            </div>
+
+            <div class="footer-social">
+                <a href="#"><img src="images/instagram-icon.png" alt="TikTok"></a>
+                <a href="#"><img src="images/tiktok-icon.png" alt="Instagram"></a>
+                <a href="#"><img src="images/x-icon.png" alt="X"></a>
+            </div>
+
+            <div class="footer-buttons">
+                <a href="contact.html" class="footer-btn primary">Reserve a Table</a>
+                <a href="order.html" class="footer-btn secondary">Order Now</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Coffee Shop. All Rights Reserved.</p>
+        </div>
+    </footer>
+    </div>
+    </body>
+</html>

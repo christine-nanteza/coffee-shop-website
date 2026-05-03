@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Coffee Shop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url("images/background2.2.png") no-repeat center center fixed;
+      background-size: cover;
+      background-attachment: scroll;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%; 
+          height: 100%;
+          background: rgba(0, 0, 0, 0.55);
+          z-index: -1;
+    }
+
+    .payment-container {
+      background: url("images/background2.2.png") no-repeat center center fixed;
+      background: rgba(0, 0, 0, 0.6);
+      max-width: 1200px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .payment-header {
+      background-color: #C8A27A;
+      color: white;
+      padding: 35px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 15px 30px;
+      position: relative;
+      margin: 0 auto;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .payment-header::before {
+      content: '☕';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      font-size: 150px;
+      opacity: 0.1;
+    }
+
+    .payment-header h1 {
+      font-family: cursive;
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+
+    .payment-header p {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .payment-body {
+      padding: 35px;
+    }
+
+    .order-summary {
+      background: linear-gradient(135deg, #fffaf5 0%, #fff5e6 100%);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      border: 2px solid #C8A27A;
+      box-shadow: 0 4px 15px rgba(139, 94, 60, 0.1);
+    }
+
+    .order-summary h3 {
+      color:#C8A27A;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .order-summary h3::before {
+      content: '🧾';
+      font-size: 1.5rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 12px 0;
+      font-size: 1rem;
+      padding: 8px 0;
+    }
+
+    .summary-row.total {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #8b5e3c;
+      padding-top: 20px;
+      border-top: 3px solid #8b5e3c;
+      margin-top: 20px;
+    }
+
+    .payment-methods {
+      margin: 30px 0;
+    }
+
+    .payment-methods h3 {
+      color: #8b5e3c;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+
+    .payment-option {
+      border: 3px solid #e0e0e0;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: white;
+    }
+
+    .payment-option:hover {
+      border-color: #8b5e3c;
+      background: #fffaf5;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(139, 94, 60, 0.2);
+    }
+
+    .payment-option.selected {
+      border-color: #8b5e3c;
+      background: #fffaf5;
+      box-shadow: 0 0 0 4px rgba(139, 94, 60, 0.2);
+    }
+
+    .payment-option.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .payment-option.disabled:hover {
+      border-color: #e0e0e0;
+      background: white;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .payment-icon {
+      font-size: 2.5rem;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .payment-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+    .payment-details {
+      flex: 1;
+    }
+
+    .payment-details h4 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .payment-details p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .payment-instructions {
+      background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+      padding: 25px;
+      border-radius: 15px;
+      margin: 25px 0;
+      border-left: 5px solid #2196F3;
+      display: none;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .payment-instructions.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { 
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .payment-instructions h4 {
+      color: #1565C0;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .payment-instructions p {
+      margin: 15px 0;
+      color: #333;
+      line-height: 1.8;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin: 25px 0;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: #333;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      font-family: monospace;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #8b5e3c;
+      box-shadow: 0 0 0 4px rgba(139, 94, 60, 0.1);
+    }
+
+    .form-group small {
+      display: block;
+      margin-top: 8px;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .phone-input-group {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .phone-input-group span {
+      padding: 15px 20px;
+      background: #f5f5f5;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #666;
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+
+    .phone-input-group input {
+      flex: 1;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .btn-primary {
+      background-color: #C8A27A;
+      color: white;
+      box-shadow: 0 5px 15px rgba(139, 94, 60, 0.3);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: #C8A27A;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(139, 94, 60, 0.4);
+    }
+
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #8b5e3c;
+      border: 3px solid #8b5e3c;
+    }
+
+    .btn-secondary:hover {
+      background: #8b5e3c;
+      color: white;
+    }
+
+    .alert {
+      padding: 20px;
+      border-radius: 12px;
+      margin: 20px 0;
+      font-size: 0.95rem;
+    }
+
+    .alert-info {
+      background: #fff3cd;
+      color: #856404;
+      border: 2px solid #ffc107;
+    }
+
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 2px solid #28a745;
+    }
+
+    .verification-box {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      padding: 25px;
+      border-radius: 15px;
+      margin-top: 25px;
+      border: 3px dashed #8b5e3c;
+      text-align: center;
+    }
+
+    .verification-box h4 {
+      color: #8b5e3c;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .verification-box .amount {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #8b5e3c;
+      margin: 15px 0;
+    }
+
+    .success-message {
+      display: none;
+      background: #d4edda;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      border: 3px solid #28a745;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message .icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .success-message h3 {
+      color: #155724;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    .success-message p {
+      color: #155724;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 600px) {
+      .payment-body {
+        padding: 25px;
+      }
+      
+      .payment-option {
+        padding: 15px;
+      }
+
+      .payment-icon {
+        font-size: 2rem;
+      }
+
+      .phone-input-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .phone-input-group span {
+        width: 100%;
+        text-align: center;
+      }
+
+      .verification-box .amount {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <div class="payment-header">
+      <h1>COMPLETE PAYMENT</h1>
+      <p>Secure and Fast Payment Processing</p>
+    </div>
+
+    <div class="payment-body">
+
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>UGX <span id="subtotal">0</span></span>
+        </div>
+        <div class="summary-row">
+          <span>Delivery Fee:</span>
+          <span>UGX <span id="delivery-fee">0</span></span>
+        </div>
+        <div class="summary-row">
+          <span>VAT (18%):</span>
+          <span>UGX <span id="vat">0</span></span>
+        </div>
+        <div class="summary-row total">
+          <span>TOTAL TO PAY:</span>
+          <span>UGX <span id="total">0</span></span>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div id="payment-form">
+        <div class="payment-methods">
+          <h3>Select Payment Method</h3>
+          
+          <div class="payment-option" data-method="mtn">
+            <div class="payment-icon">
+              <img src="images/mtn logo.png" alt="MTN Logo">
+            </div>
+            <div class="payment-details">
+              <h4>MTN Mobile Money</h4>
+              <p>Fast and secure MTN MoMo payment</p>
+            </div>
+          </div>
+
+          <div class="payment-option" data-method="airtel">
+            <div class="payment-icon">
+              <img src="images/airtel logo.png" alt="MTN Logo">
+            </div>
+            <div class="payment-details">
+              <h4>Airtel Money</h4>
+              <p>Pay instantly with Airtel Money</p>
+            </div>
+          </div>
+
+          <div class="payment-option" data-method="cash">
+            <div class="payment-icon">💵</div>
+            <div class="payment-details">
+              <h4>Cash on Pickup/Delivery</h4>
+              <p>Pay when you receive your order</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MTN Instructions -->
+        <div id="mtn-instructions" class="payment-instructions">
+          <h4>📱 MTN Mobile Money Payment</h4>
+          <p>Enter your MTN Mobile Money number below. You will receive a payment prompt on your phone to authorize the transaction.</p>
+          
+          <div class="form-group">
+            <label>MTN Mobile Money Number *</label>
+            <div class="phone-input-group">
+              <span>+256</span>
+              <input type="tel" id="mtn-phone" placeholder="771234567" maxlength="9" pattern="[0-9]{9}">
+            </div>
+            <small>Enter 9 digits (e.g., 771234567 or 781234567)</small>
+          </div>
+
+          <div class="verification-box">
+            <h4>💰 Amount to Pay</h4>
+            <div class="amount">UGX <span class="total-amount">0</span></div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+              After clicking "Request Payment", check your phone for a prompt to approve the transaction.
+            </p>
+          </div>
+        </div>
+
+        <!-- Airtel Instructions -->
+        <div id="airtel-instructions" class="payment-instructions">
+          <h4>📲 Airtel Money Payment</h4>
+          <p>Enter your Airtel Money number below. You will receive a payment prompt on your phone to authorize the transaction.</p>
+          
+          <div class="form-group">
+            <label>Airtel Money Number *</label>
+            <div class="phone-input-group">
+              <span>+256</span>
+              <input type="tel" id="airtel-phone" placeholder="701234567" maxlength="9" pattern="[0-9]{9}">
+            </div>
+            <small>Enter 9 digits (e.g., 701234567 or 751234567)</small>
+          </div>
+
+          <div class="verification-box">
+            <h4>💰 Amount to Pay</h4>
+            <div class="amount">UGX <span class="total-amount">0</span></div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+              After clicking "Request Payment", check your phone for a prompt to approve the transaction.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card Instructions -->
+        <div id="card-instructions" class="payment-instructions">
+          <h4>💳 Card Payment</h4>
+          <div class="alert alert-info">
+            <strong>⏳ Coming Soon!</strong><br>
+            Card payment integration is being set up. For now, please use Mobile Money or Cash payment.
+          </div>
+        </div>
+
+        <!-- Cash Instructions -->
+        <div id="cash-instructions" class="payment-instructions">
+          <h4>💵 Cash Payment</h4>
+          <div class="alert alert-success">
+            <strong>✅ Perfect Choice!</strong><br>
+            You'll pay cash when you receive your order. Please have the exact amount ready.
+          </div>
+          <div class="verification-box">
+            <h4>💰 Amount to Pay</h4>
+            <div class="amount">UGX <span class="total-amount">0</span></div>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+              Our delivery staff will contact you to confirm your order details and delivery time.
+            </p>
+          </div>
+        </div>
+
+        <button id="confirm-btn" class="btn btn-primary" disabled>
+          Select a Payment Method to Continue
+        </button>
+
+        <button onclick="history.back()" class="btn btn-secondary">
+          ← Back to Order
+        </button>
+      </div>
+
+      <div id="success-message" class="success-message">
+        <div class="icon">✅</div>
+        <h3>Payment Confirmed!</h3>
+        <p id="success-text">Your payment has been recorded successfully.</p>
+        <button onclick="window.location.href='receipt.html'" id="view-receipt-btn" class="btn btn-primary" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">
+          View Receipt →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedMethod = null;
+    let totalAmount = 0;
+
+    // Load order data from URL params
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const total = urlParams.get('total') || '0';
+      const subtotal = urlParams.get('subtotal') || '0';
+      const delivery = urlParams.get('delivery') || '0';
+      const vat = urlParams.get('vat') || '0';
+
+      totalAmount = parseInt(total);
+
+      document.getElementById('subtotal').textContent = formatNumber(subtotal);
+      document.getElementById('delivery-fee').textContent = formatNumber(delivery);
+      document.getElementById('vat').textContent = formatNumber(vat);
+      document.getElementById('total').textContent = formatNumber(total);
+      
+      document.querySelectorAll('.total-amount').forEach(el => {
+        el.textContent = formatNumber(total);
+      });
+    });
+
+    // Handle payment method selection
+    document.querySelectorAll('.payment-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // Don't select disabled options
+        if (this.classList.contains('disabled')) {
+          return;
+        }
+
+        // Remove selected class from all options
+        document.querySelectorAll('.payment-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked option
+        this.classList.add('selected');
+        selectedMethod = this.dataset.method;
+        
+        // Hide all instructions
+        document.querySelectorAll('.payment-instructions').forEach(inst => {
+          inst.classList.remove('show');
+        });
+        
+        // Show relevant instructions
+        const instructionsId = selectedMethod + '-instructions';
+        document.getElementById(instructionsId).classList.add('show');
+        
+        // Update button
+        const btn = document.getElementById('confirm-btn');
+        btn.disabled = false;
+        
+        if (selectedMethod === 'cash') {
+          btn.textContent = '✓ Confirm Cash Payment';
+        } else if (selectedMethod === 'mtn') {
+          btn.textContent = '📱 Request MTN Payment';
+        } else if (selectedMethod === 'airtel') {
+          btn.textContent = '📲 Request Airtel Payment';
+        }
+      });
+    });
+
+    // Handle payment confirmation
+    document.getElementById('confirm-btn').addEventListener('click', function() {
+      if (!selectedMethod) {
+        alert('Please select a payment method');
+        return;
+      }
+
+      // Validate phone number for mobile money
+      if (selectedMethod === 'mtn') {
+        const phone = document.getElementById('mtn-phone').value.trim();
+        
+        if (!phone || phone.length !== 9) {
+          alert('Please enter a valid 9-digit MTN phone number');
+          return;
+        }
+
+        // Validate MTN prefix (77 or 78)
+        if (!phone.startsWith('77') && !phone.startsWith('78')) {
+          alert('MTN numbers must start with 77 or 78');
+          return;
+        }
+
+        const fullPhone = '+256' + phone;
+        processPayment('MTN Mobile Money', fullPhone);
+        
+      } else if (selectedMethod === 'airtel') {
+        const phone = document.getElementById('airtel-phone').value.trim();
+        
+        if (!phone || phone.length !== 9) {
+          alert('Please enter a valid 9-digit Airtel phone number');
+          return;
+        }
+
+        // Validate Airtel prefix (70 or 75)
+        if (!phone.startsWith('70') && !phone.startsWith('75')) {
+          alert('Airtel numbers must start with 70 or 75');
+          return;
+        }
+
+        const fullPhone = '+256' + phone;
+        processPayment('Airtel Money', fullPhone);
+        
+      } else if (selectedMethod === 'cash') {
+        processPayment('Cash', null);
+      }
+    });
+
+    async function processPayment(method, phoneNumber) {
+      const btn = document.getElementById('confirm-btn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Processing...';
+
+      // Prepare payment data
+      const formData = new FormData();
+      formData.append('method', method);
+      formData.append('phone', phoneNumber || '');
+      formData.append('amount', totalAmount);
+
+      // Log what we're sending (for debugging)
+      console.log('Sending payment request:', {
+        method: method,
+        phone: phoneNumber,
+        amount: totalAmount
+      });
+
+      try {
+        // Send payment data to backend - CORRECTED FILENAME
+        const response = await fetch('process_payment.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        // Log response details
+        console.log('Response status:', response.status);
+
+        // Get response text first
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+
+        // Try to parse as JSON
+        let result;
+        try {
+          result = JSON.parse(responseText);
+          console.log('Parsed result:', result);
+        } catch (e) {
+          console.error('JSON parse error:', e);
+          alert('Server returned invalid response: ' + responseText.substring(0, 100));
+          btn.disabled = false;
+          btn.textContent = selectedMethod === 'cash' ? '✓ Confirm Cash Payment' : 
+                            selectedMethod === 'mtn' ? '📱 Request MTN Payment' : 
+                            '📲 Request Airtel Payment';
+          return;
+        }
+
+        if (result.success) {
+          // Hide payment form
+          document.getElementById('payment-form').style.display = 'none';
+
+          // Update View Receipt button to include order db_id in URL
+          const orderId = result.data?.order_id || '';
+          document.getElementById('view-receipt-btn').onclick = function() {
+            window.location.href = 'receipt.html?order_id=' + encodeURIComponent(orderId);
+          };
+          
+          // Show success message
+          const successMsg = document.getElementById('success-message');
+          const successText = document.getElementById('success-text');
+          
+          if (method === 'Cash') {
+            successText.innerHTML = `
+              <strong>Payment Method:</strong> Cash on Delivery/Pickup<br><br>
+              <strong>Amount:</strong> UGX ${formatNumber(totalAmount)}<br><br>
+              Please have the exact amount ready when receiving your order. We will contact you shortly to confirm.
+            `;
+          } else {
+            successText.innerHTML = `
+              <strong>Payment Method:</strong> ${method}<br>
+              <strong>Phone Number:</strong> ${phoneNumber}<br>
+              <strong>Amount:</strong> UGX ${formatNumber(totalAmount)}<br><br>
+              Please check your phone for a payment prompt to authorize this transaction. After approval, we will prepare your order immediately!
+            `;
+          }
+          
+          successMsg.classList.add('show');
+          
+        } else {
+          alert('Error: ' + result.message);
+          btn.disabled = false;
+          btn.textContent = selectedMethod === 'cash' ? '✓ Confirm Cash Payment' : 
+                            selectedMethod === 'mtn' ? '📱 Request MTN Payment' : 
+                            '📲 Request Airtel Payment';
+        }
+      } catch (error) {
+        console.error('Payment error:', error);
+        alert('An error occurred while processing payment. Please try again.');
+        btn.disabled = false;
+        btn.textContent = selectedMethod === 'cash' ? '✓ Confirm Cash Payment' : 
+                          selectedMethod === 'mtn' ? '📱 Request MTN Payment' : 
+                          '📲 Request Airtel Payment';
+      }
+    }
+
+    function formatNumber(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Validate phone number input (numbers only)
+    const mtnPhone = document.getElementById('mtn-phone');
+    const airtelPhone = document.getElementById('airtel-phone');
+    
+    if (mtnPhone) {
+      mtnPhone.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+    }
+
+    if (airtelPhone) {
+      airtelPhone.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>COFFE SHOP | Home</title>
+
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            line-height: 1.6;
+            background: url("images/coffeeshop-bg.jpg") no-repeat center center fixed;
+            background-size: cover; 
+            background-attachment: scroll;
+            color: #3A2E2A;
+        }
+
+        .container {
+            max-width: 1200px;
+            background: url("images/coffeeshop-bg.jpg") no-repeat center center fixed;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: auto;
+            padding: 20px;
+          }
+
+        header{
+            background-color:  #C8A27A;
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .shop-name{
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 1.8rem;
+        }
+
+        .logo{
+            height: 80px;
+            width: auto;
+        }
+
+        .nav-links{
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a:hover{
+            color:  #3A2E2A;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background-color: #3A2E2A; 
+            transition: width 0.3s;
+        }
+
+        .nav-links li a:hover::after {
+            width: 100%;
+        }
+
+        .dropdown {
+        position: relative;
+        }
+
+        .dropdown .dropbtn {
+        cursor: pointer;
+        display: inline-block;
+        }
+
+        .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #C8A27A; 
+        min-width: 200px;
+        top: 100%;
+        left: 0;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        overflow: hidden;
+        }
+
+        .dropdown-content li {
+        list-style: none;
+        }
+
+        .dropdown-content a {
+        color: #fff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+        transition: background 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+        background-color: #a6784d;
+        }
+
+        .dropdown:hover .dropdown-content {
+        display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+        color: #3A2E2A;
+        transition: color 0.3s ease;
+        }
+
+        #intro {
+        background: url("images/home-bg.png") no-repeat center center/cover;
+        height: 260px;
+        display: flex;
+        flex-direction: column;
+        background-attachment: fixed;
+        background-size: cover;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        max-width: 1100px;
+        min-height: 70vh;
+        margin: 20px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        margin-top: 40px;
+      }
+
+      .intro-text {
+        background: rgba(255, 255, 255, 0.85);
+        padding: 30px 40px;
+        border-radius: 12px;
+        color: #3A2E2A;
+        display: inline-block;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(4px);
+        text-align: center;
+        max-width: 800px;
+        }
+
+      .intro-text a {
+        display: inline-block;
+        margin-top: 15px;
+        background: #8b5e3c;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+
+      .intro-text a:hover {
+        background: #d4a373;
+      }
+
+        #intro h1{
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        #intro p{
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 1.2rem;    
+        }
+
+        .intro-btn{
+            display: flex;
+            gap: 15px;
+        }
+
+        .intro-btn a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #C8A27A, #A47148);
+            border: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            }
+
+            .intro-btn a:hover {
+            background: linear-gradient(135deg, #A47148, #C8A27A);
+            transform: translateY(-3px);
+            }
+
+        section{
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        section h2{
+            color: #A47148;
+        }
+
+        #features p, #Reviews p{
+            margin-bottom: 20px;
+        }
+
+        #features{
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .feature-card{
+            flex: 1 1 300px;
+            background: #FFF8F0;
+            color: #3A2E2A;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0,  0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #Reviews{
+            margin-top: 30px;
+            border-radius: 8px;
+            padding: 30px;
+            color: #fff;
+        }
+
+        .feature-card:hover{
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h2{
+            color: #A47148;
+            margin-bottom: 10px;
+        }
+
+        #Reviews {
+            margin-top: 40px;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            text-align: center;
+            }
+
+            #Reviews h2 {
+            color: #E6B980;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            }
+
+            .review-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            }
+
+            .review-card {
+            background: #fff;
+            color: #3A2E2A;
+            padding: 20px;
+            border-radius: 10px;
+            width: 280px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            }
+
+            .review-card:hover {
+            transform: translateY(-5px);
+            }
+
+            .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            }
+
+            .reviewer {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            }
+
+        #cta{
+            text-align: center;
+            background: #FFF8F0;
+            color: #3A2E2A;
+            padding: 40px 20px;
+            border-radius: 10px;
+        }
+
+        #cta a{
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: #C8A27A;
+            color: #3A2E2A;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        #cta a:hover{
+            background: #A47148;
+            color: #fff;
+        }
+
+        footer{
+            background: #A47148;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-left h3 {
+            color: #3A2E2A;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .footer-left p {
+            color: #fff;
+            font-size: 0.9rem;
+            max-width: 300px;
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-social img {
+            width: 45px;
+            height: 45px;
+            background: #C8A27A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            background: #E6B980;
+            transform: translateY(-3px);
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;    
+        }
+
+        .footer-btn {
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .footer-btn.primary {
+            background: transparent;
+            border: 2px solid #C8A27A;
+            color: #fff;
+        }
+
+        .footer-btn.primary:hover {
+            background: #3A2E2A;
+            color: #3A2E2A;
+        }
+
+        .footer-btn.secondary {
+            background: #C8A27A;
+            color: #fff;
+            border: 2px solid #C8A27A;
+        }
+
+        .footer-btn.secondary:hover {
+            background: #E6B980;
+            border-color: #E6B980;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 162, 122, 0.3);
+            margin-top: 20px;
+            color: #E6B980;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            color: #fff;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+        }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+
+            .footer-left p {
+                max-width: 100%;
+            }
+
+            .footer-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+    </head>
+
+    <body>
+        <div class="container">
+    <header>
+        <nav>
+            <div class="brand">
+            <a href="index.html">
+            <img src="images/logo.png" alt="Coffee Shop Logo" class="logo">
+            </a>
+            <span class="shop-name">THE COFFEE SHOP</span>
+            </div>
+
+        <ul class="nav-links">
+            <li><a href="home.html">HOME</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            
+            <li class="dropdown">
+            <a href="menu.html" class="drop-btn">MENU▼</a>
+            <ul class="dropdown-content">
+                <li><a href="menu.html#coffee-menu">Coffee</a></li>
+                <li><a href="menu.html#tea-menu">Tea</a></li>
+                <li><a href="menu.html#pastries-menu">Pastries</a></li>
+            </ul>
+            </li>
+
+            <li class="dropdown">
+            <a href="gallery.html" class="drop-btn">GALLERY▼</a>
+            <ul class="dropdown-content">
+                <li><a href="gallery.html#cafe-interior">Cafe Interior</a></li>
+                <li><a href="gallery.html#events">Events And Specials</a></li>
+                <li><a href="gallery.html#menu-highlights">Menu Highlights</a></li>
+            </ul>
+            </li>
+
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="order.html">ORDER NOW</a></li>
+        </ul>
+        </nav>
+    </header>
+
+    <section id="intro">
+        <div class="intro-text">
+        <h1>Brewed with love, served with warmth</h1>
+        <p>Welcome to our cozy corner in the heart of Kampala, where every cup of coffee tells a story. Our expert baristas use the finest locally-sourced beans to deliver a rich, aromatic experience.
+            Whether you're looking for a quick espresso on the go or a relaxing spot to unwind with friends, our coffee shop provides the perfect atmosphere for every occasion.</p>
+        <div class="intro-btn">
+            <a href="menu.html">View Menu</a>
+            <a href="contact.html">Reserve Table</a>
+        </div>
+        </div>
+    </section>
+
+    <main>
+    <section id="features">
+    <div class="feature-card">
+        <h2>Fresh Coffee</h2>
+        <p>Our coffee is freshly brewed every day using only high-quality beans from local farmers. Each cup is carefully prepared to bring out the rich flavors and aroma that coffee lovers crave.
+            We offer a variety of brewing methods including espresso, pour-over, and French press, ensuring every cup matches your taste preference.</p>        
+    </div>
+
+    <div class="feature-card">
+        <h2>Homemade Pastries</h2>
+        <p>All our pastries are baked in-house daily using fresh ingredients. From flaky croissants to decadent muffins, each treat is crafted to perfectly complement our coffee offerings.
+            We also offer seasonal specials, such as pumpkin spice muffins in autumn and chocolate-stuffed croissants during the holidays.</p>
+        </div>
+        
+    <div class="feature-card">
+        <h2>Organic Beans</h2>
+        <p>We source our coffee beans from sustainable local farms, supporting fair trade and organic farming practices. This ensures not only a superior taste but also a positive impact on the community.
+            Our beans are roasted to perfection, highlighting their natural flavors and unique characteristics, whether you prefer a light, medium, or dark roast.</p>
+    </div>
+    </section>
+
+    <section id="Reviews">
+    <h2>What Our Customers Say</h2>
+    <div class="review-container">
+        <div class="review-card">
+        <p class="review-text">"I love coming here every morning! The coffee is always perfect, and the atmosphere is so relaxing."</p>
+        <span class="reviewer">- Sarah K.</span>
+        </div>
+
+        <div class="review-card">
+        <p class="review-text">"The pastries are out of this world, especially the chocolate croissants. Highly recommend!"</p>
+        <span class="reviewer">- James L.</span>
+        </div>
+
+        <div class="review-card">
+        <p class="review-text">"Best coffee in Kampala! Friendly staff and cozy interior make it my favorite spot."</p>
+        <span class="reviewer">- Anita M.</span>
+        </div>
+    </div>
+    </section>
+
+    <section id="cta">
+        <h2>Order Your Coffee Online</h2>
+        <p>Skip the line and have your favorite drinks ready when you arrive.</p>
+        <a href="order.html">Order Now</a>
+    </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Coffee Shop</h3>
+                <p>Experience the perfect blend of quality and comfort in every cup</p>
+            </div>
+
+            <div class="footer-social">
+                <a href="#"><img src="images/instagram-icon.png" alt="TikTok"></a>
+                <a href="#"><img src="images/tiktok-icon.png" alt="Instagram"></a>
+                <a href="#"><img src="images/x-icon.png" alt="X"></a>
+            </div>
+
+            <div class="footer-buttons">
+                <a href="contact.html" class="footer-btn primary">Reserve a Table</a>
+                <a href="order.html" class="footer-btn secondary">Order Now</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Coffee Shop. All Rights Reserved.</p>
+        </div>
+    </footer>
+    </div>
+    </body>
+</html>

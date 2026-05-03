@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Receipt - Coffee Shop</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-size: cover;
+      background: url(images/background1.1.png) no-repeat center center;
+      background-attachment: scroll;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%; 
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: -1;
+    }
+
+    .receipt-container {
+      background: white;
+      max-width: 600px;
+      width: 100%;
+      padding: 0;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .receipt-header {
+      background: #C8A27A;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-bottom: 3px dashed #d4a373;
+    }
+
+    .receipt-header h1 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .receipt-header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .receipt-body {
+      padding: 30px;
+    }
+
+    .order-info {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px dashed #ccc;
+    }
+
+    .order-info p {
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    .order-info strong {
+      color: #8b5e3c;
+    }
+
+    .order-id {
+      background: #fffaf5;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      border: 2px solid #8b5e3c;
+    }
+
+    .order-id h2 {
+      color: #8b5e3c;
+      font-size: 1.5rem;
+    }
+
+    .items-table {
+      width: 100%;
+      margin: 20px 0;
+      border-collapse: collapse;
+    }
+
+    .items-table th {
+      background: #f5f5f5;
+      padding: 12px;
+      text-align: left;
+      border-bottom: 2px solid #8b5e3c;
+      color: #8b5e3c;
+      font-weight: bold;
+    }
+
+    .items-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .items-table tr:hover {
+      background: #fffaf5;
+    }
+
+    .price-right {
+      text-align: right;
+    }
+
+    .totals {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px dashed #ccc;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+
+    .total-row.grand-total {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #8b5e3c;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid #8b5e3c;
+    }
+
+    .receipt-footer {
+      text-align: center;
+      padding: 25px;
+      background: #fffaf5;
+      border-top: 2px dashed #ccc;
+    }
+
+    .receipt-footer p {
+      margin: 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .thank-you {
+      font-size: 1.3rem;
+      color: #8b5e3c;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #8b5e3c;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #6d4a2e;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #8b5e3c;
+      border: 2px solid #8b5e3c;
+    }
+
+    .btn-secondary:hover {
+      background: #8b5e3c;
+      color: white;
+    }
+
+    .special-notes {
+      background: #fffaf5;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #8b5e3c;
+    }
+
+    .special-notes strong {
+      color: #8b5e3c;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+      color: #8b5e3c;
+      font-size: 1.2rem;
+    }
+
+    .error-message {
+      background: #ffebee;
+      color: #c62828;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 20px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .receipt-container {
+        box-shadow: none;
+      }
+      .buttons {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .receipt-body {
+        padding: 20px;
+      }
+      
+      .items-table {
+        font-size: 0.9rem;
+      }
+      
+      .items-table th,
+      .items-table td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <div class="receipt-header">
+      <h1>☕ THE COFFEE SHOP</h1>
+      <p>Kampala, Uganda</p>
+      <p>Tel: +256 779 265 906 | Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6bfb8b0b996b5b9b0b0b3b3a5beb9a6f8a3b1">[email&#160;protected]</a></p>
+    </div>
+
+    <div class="receipt-body">
+      <div class="loading">⏳ Loading your receipt...</div>
+
+      <div class="order-id" style="display: none;">
+        <h2>ORDER #<span id="order-id"></span></h2>
+        <p style="font-size: 0.9rem; margin-top: 5px;" id="order-date"></p>
+      </div>
+
+      <div class="order-info" style="display: none;">
+        <p><strong>Customer:</strong> <span id="customer-name"></span></p>
+        <p><strong>Phone:</strong> <span id="customer-phone"></span></p>
+        <p><strong>Email:</strong> <span id="customer-email"></span></p>
+        <p><strong>Pickup Time:</strong> <span id="pickup-time"></span></p>
+        <p><strong>Order Type:</strong> <span id="order-type"></span></p>
+        <p id="delivery-address-row" style="display: none;">
+          <strong>Delivery Address:</strong> <span id="delivery-address"></span>
+        </p>
+        <p><strong>Payment Method:</strong> <span id="payment-method"></span></p>
+        <p id="payment-phone-row" style="display: none;">
+          <strong>Payment Phone:</strong> <span id="payment-phone"></span>
+        </p>
+      </div>
+
+      <table class="items-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Category</th>
+            <th class="price-right">Price</th>
+          </tr>
+        </thead>
+        <tbody id="items-list">
+        </tbody>
+      </table>
+
+      <div id="special-notes-section" class="special-notes" style="display: none;">
+        <strong>Special Instructions:</strong>
+        <p id="special-notes" style="margin-top: 5px;"></p>
+      </div>
+
+      <div class="totals" style="display: none;">
+        <div class="total-row">
+          <span>Subtotal <span id="quantity-display"></span>:</span>
+          <span>UGX <span id="subtotal"></span></span>
+        </div>
+        
+        <div class="total-row" id="delivery-fee-row" style="display: none;">
+          <span>Delivery Fee:</span>
+          <span>UGX <span id="delivery-fee"></span></span>
+        </div>
+        
+        <div class="total-row">
+          <span>VAT (18%):</span>
+          <span>UGX <span id="vat"></span></span>
+        </div>
+        
+        <div class="total-row grand-total">
+          <span>GRAND TOTAL:</span>
+          <span>UGX <span id="grand-total"></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="receipt-footer">
+      <p class="thank-you">Thank You For Your Order! ☕</p>
+      <p>We hope you enjoy your coffee and treats!</p>
+      <p style="font-size: 0.85rem; color: #666; margin-top: 15px;">
+        This is your official receipt. Please keep it for your records.
+      </p>
+      
+      <div class="buttons">
+        <button onclick="window.print()" class="btn btn-primary">🖨️ Print Receipt</button>
+        <a href="order.html" class="btn btn-secondary">Place New Order</a>
+        <a href="home.html" class="btn btn-secondary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Fetch real order data from PHP
+    async function loadOrderData() {
+      try {
+        // Pass order_id from URL to order-data.php if available
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('order_id') || '';
+        const url = orderId ? 'order-data.php?order_id=' + encodeURIComponent(orderId) : 'order-data.php';
+
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (!result.success) {
+          showError('No order found. Please place an order first.');
+          return;
+        }
+
+        const order = result.data;
+        displayReceipt(order);
+      } catch (error) {
+        showError('Error loading receipt. Please try again.');
+        console.error('Error:', error);
+      }
+    }
+
+    function displayReceipt(order) {
+      // Hide loading message
+      document.querySelector('.loading').style.display = 'none';
+
+      // Show all sections
+      document.querySelector('.order-id').style.display = 'block';
+      document.querySelector('.order-info').style.display = 'block';
+      document.querySelector('.items-table').style.display = 'table';
+      document.querySelector('.totals').style.display = 'block';
+
+      // Update Order ID and Date
+      document.getElementById('order-id').textContent = order.order_id;
+      
+      const orderDate = new Date(order.order_time);
+      const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      document.getElementById('order-date').textContent = orderDate.toLocaleDateString('en-US', options);
+
+      // Update Customer Info
+      document.getElementById('customer-name').textContent = order.name;
+      document.getElementById('customer-phone').textContent = order.phone;
+      document.getElementById('customer-email').textContent = order.email;
+      document.getElementById('pickup-time').textContent = order.pickup_time;
+      document.getElementById('order-type').textContent = order.delivery.charAt(0).toUpperCase() + order.delivery.slice(1);
+
+      // Show delivery address if applicable
+      if (order.delivery === 'delivery' && order.address) {
+        document.getElementById('delivery-address-row').style.display = 'block';
+        document.getElementById('delivery-address').textContent = order.address;
+      }
+
+      // Update payment method
+      const paymentMethod = order.payment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      document.getElementById('payment-method').textContent = paymentMethod;
+
+      // Show payment phone if available
+      if (order.payment_phone) {
+        document.getElementById('payment-phone-row').style.display = 'block';
+        document.getElementById('payment-phone').textContent = order.payment_phone;
+      }
+
+      // Populate items table
+      const itemsList = document.getElementById('items-list');
+      itemsList.innerHTML = '';
+      
+      order.items.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${escapeHtml(item.name)}</td>
+          <td>${escapeHtml(item.category)}</td>
+          <td class="price-right">UGX ${formatNumber(item.price)}</td>
+        `;
+        itemsList.appendChild(row);
+      });
+
+      // Show special notes if they exist
+      if (order.notes && order.notes.trim() !== '') {
+        document.getElementById('special-notes-section').style.display = 'block';
+        document.getElementById('special-notes').textContent = order.notes;
+      }
+
+      // Update totals
+      document.getElementById('quantity-display').textContent = `(x${order.quantity})`;
+      document.getElementById('subtotal').textContent = formatNumber(order.subtotal);
+      document.getElementById('vat').textContent = formatNumber(order.tax);
+      document.getElementById('grand-total').textContent = formatNumber(order.total);
+
+      // Show delivery fee if applicable
+      if (order.delivery_fee > 0) {
+        document.getElementById('delivery-fee-row').style.display = 'flex';
+        document.getElementById('delivery-fee').textContent = formatNumber(order.delivery_fee);
+      }
+
+      // Update page title
+      document.title = `Receipt - ${order.order_id}`;
+    }
+
+    function showError(message) {
+      document.querySelector('.loading').innerHTML = `
+        <div class="error-message">
+          <h3>⚠️ ${message}</h3>
+          <div style="margin-top: 20px;">
+            <a href="order.html" class="btn btn-primary">Place an Order</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Helper function to format numbers with commas
+    function formatNumber(num) {
+      return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Helper function to escape HTML characters
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',

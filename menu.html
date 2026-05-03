@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COFFEE SHOP | Menu</title>
+
+  <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        background: url("images/menu-bg.png") no-repeat center center fixed;
+        background-size:  cover;
+        color: #3A2E2A;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      header {
+        background-color: #C8A27A;
+        padding: 15px 30px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .shop-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .logo {
+        height: 70px;
+      }
+
+      .menu-banner {
+        position: relative;
+        text-align: center;
+        color: #fff;
+      }
+
+      .banner-img {
+        width: 60%;
+        height: 60vh;
+        object-fit: cover;
+      }
+
+      .banner-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        padding: 1.5rem 2rem;
+        border-radius: 10px;
+      }
+
+      .banner-text h1 {
+        font-family: cursive;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .banner-text p {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links li a {
+        font-weight: bold;
+        font-size: 1rem;
+        position: relative;
+        color: #fff;
+      }
+
+      .nav-links li a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        left: 0;
+        bottom: -5px;
+        background-color: #3A2E2A;
+        transition: width 0.3s;
+      }
+
+      .nav-links li a:hover::after {
+        width: 100%;
+      }
+
+                  .dropdown {
+            position: relative;
+            }
+
+            .dropdown .dropbtn {
+            cursor: pointer;
+            display: inline-block;
+            }
+
+            .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #C8A27A; 
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+            }
+
+            .dropdown-content li {
+            list-style: none;
+            }
+
+            .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            }
+
+            .dropdown-content a:hover {
+            background-color: #a6784d;
+            }
+
+            .dropdown:hover .dropdown-content {
+            display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+            color: #3A2E2A;
+            transition: color 0.3s ease;
+            }
+
+      body::before {
+        content: "";
+        position: fixed;
+        background: rgba(0, 0, 0, 0.4);
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1200px;
+        height: 100%;
+        z-index: -1;
+        border-radius: 12px;
+      }
+
+      main {
+        position: relative;
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+        background: rgba(255, 250, 245, 0.9);
+        border-radius: 12px;
+        z-index: 1;
+      }
+
+      main h2 {
+        font-size: 2rem;
+        color: #4a2c2a;
+        margin-bottom: 20px;
+        border-left: 6px solid #C8A27A;
+        padding-left: 12px;
+      }
+
+      #coffee-menu, #tea-menu, #pastries-menu {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .seasonal-banner{
+        background: #6b4226;
+        color: #fff;
+        text-align: center;
+        padding: 12px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .menu-item {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+      }
+
+      .menu-item::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(200, 162, 122, 0.1);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .menu-item:hover::after{
+        opacity: 1;
+      }
+
+      .menu-item img {
+        width: 100%;
+        max-width: 220px;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
+      }
+
+      .menu-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .menu-item h3 {
+        font-size: 1.3rem;
+        color: #3a2e2a;
+        margin: 10px 0;
+      }
+
+      .menu-item p {
+        font-size: 0.95rem;
+        color: #5a4740;
+        margin-bottom: 12px;
+      }
+
+      .price {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #6b4226;
+        background: #f9e5d0;
+        padding: 5px 10px;
+        border-radius: 6px;
+        display: inline-block;
+      }
+
+      .badge{
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: #C8A27A;
+        color: #fff;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      .menu-categories{
+        text-align: center;
+        background: #f9e5d0;
+        padding: 12px;
+        position: sticky;
+        top: 80px;
+        z-index: 999;
+      }
+
+      .menu-categories a{
+        margin: 0 15px;
+        font-weight: bold;
+        color: #3A2E2A;
+        transition: color 0.3s;
+      }
+
+      .menu-categories a:hover{
+        color: #C8A27A;
+      }
+
+      #daily-special {
+        background: #fff8f0;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        margin-bottom: 40px;
+      }
+
+      .special-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .special-card img {
+        width: 200px;
+        border-radius: 10px;
+      }
+
+      #daily-special h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #3A2E2A;
+      }
+
+
+      .order-now {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .order-btn {
+        background-color: #C8A27A; 
+        color: #fff;
+        padding: 12px 25px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 8px;
+        text-transform: uppercase;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .order-btn:hover {
+        background-color: #a8835f;
+        transform: scale(1.05);
+        text-decoration: underline;
+        color: #3A2E2A;
+      }
+
+      footer{
+            background: #A47148;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-left h3 {
+            color: #3A2E2A;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .footer-left p {
+            color: #fff;
+            font-size: 0.9rem;
+            max-width: 300px;
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-social img {
+            width: 45px;
+            height: 45px;
+            background: #C8A27A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            background: #E6B980;
+            transform: translateY(-3px);
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;    
+        }
+
+        .footer-btn {
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .footer-btn.primary {
+            background: transparent;
+            border: 2px solid #C8A27A;
+            color: #fff;
+        }
+
+        .footer-btn.primary:hover {
+            background: #3A2E2A;
+            color: #3A2E2A;
+        }
+
+        .footer-btn.secondary {
+            background: #C8A27A;
+            color: #fff;
+            border: 2px solid #C8A27A;
+        }
+
+        .footer-btn.secondary:hover {
+            background: #E6B980;
+            border-color: #E6B980;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 162, 122, 0.3);
+            margin-top: 20px;
+            color: #E6B980;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            color: #fff;
+            margin: 0;
+        }
+
+      @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+        }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+
+            .footer-left p {
+                max-width: 100%;
+            }
+
+            .footer-buttons {
+                justify-content: center;
+            }
+        }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Coffee Shop Logo" class="logo">
+        </a>
+        <span class="shop-name">THE COFFEE SHOP</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+
+        <li class="dropdown">
+        <a href="menu.html" class="drop-btn">MENU▼</a>
+        <ul class="dropdown-content">
+        <li><a href="menu.html#coffee-menu">Coffee</a></li>
+        <li><a href="menu.html#tea-menu">Tea</a></li>
+        <li><a href="menu.html#pastries-menu">Pastries</a></li>
+        </ul>
+         </li>
+
+        <li class="dropdown">
+            <a href="gallery.html" class="drop-btn">GALLERY▼</a>
+            <ul class="dropdown-content">
+                <li><a href="gallery.html#cafe-interior">Cafe Interior</a></li>
+                <li><a href="gallery.html#events">Events And Specials</a></li>
+                <li><a href="gallery.html#menu-highlights">Menu Highlights</a></li>
+            </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="order.html">ORDER NOW</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="menu-banner">
+    <img src="images/menu-banner.png" alt="Coffee beans and cups" class="banner-img">
+    <div class="intro-card banner-text">
+      <h1>Our Delicious Menu</h1>
+      <p>From bold espressos to sweet pastries, every item is crafted with love and fresh ingredients to brighten your day.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="seasonal-banner">
+      Pumpkin Spice is Back! Try our limited-edition fall drinks. Ask our baristas for details.
+    </div>
+
+    <section id="daily-special">
+        <h2>Today's Special</h2>
+        <div class="special-card">
+            <img src="images/pumpkin-latte.png" alt="Pumpkin Spice Latte">
+        <div>
+        <h3>Pumpkin Spice Latte</h3>
+        <p>A cozy blend of espresso, steamed milk, pumpkin, and warm spices. Limited time only!</p>
+        <div class="price">UGX 15,000</div>
+        </div>
+        </div>
+        </section>
+
+    <section id="coffee-menu">
+      <h2>Coffee Drinks</h2>
+      <article class="menu-item">
+        <img src="images/espresso1.png" alt="Espresso Coffee">
+        <h3>Espresso</h3>
+        <p>A rich, full bodied shot of pure coffee flavor.</p>
+        <div class="price">UGX 11,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/latte2.png" alt="Latte Coffee">
+        <h3>Latte</h3>
+        <p>Espresso with steamed milk and froth. Try vanilla, caramel or hazelnut!</p>
+        <div class="price">UGX 11,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/cappucino1.png" alt="Cappuccino">
+        <h3>Cappuccino</h3>
+        <p>Espresso, steamed milk and frothy foam  a true Italian classic.</p>
+        <div class="price">UGX 14,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/mocha1.png" alt="Mocha">
+        <h3>Mocha</h3>
+        <p>Espresso, chocolate and steamed milk topped with cream.</p>
+        <div class="price">UGX 15,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/pp1.png" alt="Pour Over Coffee">
+        <h3>Pour-Over Coffee</h3>
+        <p>Slowly brewed for a clean, aromatic taste that highlights the natural flavors of our organic beans. A treat for true coffee enthusiasts!</p>
+        <div class="price">UGX 12,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/flat white1.png" alt="flat white">
+        <h3>Flat White</h3>
+        <p>Delicate espresso topped with velvety microfoam. A smooth, silky texture that coffee enthusiasts adore.</p>
+        <div class="price">UGX 13,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/americano1.png" alt="Americano">
+        <h3>Americano</h3>
+        <p>Espresso diluted with hot water simple, smooth and bold.</p>
+        <div class="price">UGX 12,500</div>
+      </article>
+    </section>
+
+    <section id="tea-menu">
+      <h2>Teas</h2>
+      <article class="menu-item">
+        <img src="images/green1.png" alt="Green Tea">
+        <h3>Green Tea</h3>
+        <p>Refreshing and healthy, served hot or iced.</p>
+        <div class="price">UGX 7,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/black tea.png" alt="Black Tea">
+        <h3>Black Tea</h3>
+        <p>Bold, classic, and full of flavor.</p>
+        <div class="price">UGX 6,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/hot chocolate1.png" alt="Hot Chocolate">
+        <h3>Hot Chocolate</h3>
+        <p>Rich and velvety chocolate drink topped with whipped cream. A favorite treat for kids and adults alike!</p>
+        <div class="price">UGX 9,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/chai1.png" alt="Chai Tea">
+        <h3>Chai Tea</h3>
+        <p>Aromatic blend of black tea, milk, and warm spices.</p>
+        <div class="price">UGX 8,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/herbal1.png" alt="Herbal Tea">
+        <h3>Herbal Tea</h3>
+        <p>Caffeine-free blends of herbs and flowers for relaxation.</p>
+        <div class="price">UGX 9,000</div>
+      </article>
+    </section>
+
+    <section id="pastries-menu">
+      <h2>Pastries & Snacks</h2>
+      <article class="menu-item">
+        <img src="images/croisants.png" alt="Croissant">
+        <h3>Croissant</h3>
+        <p>Golden, buttery, and flaky a classic French delight.</p>
+        <div class="price">UGX 4,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/muffins.png" alt="Muffin">
+        <h3>Muffin</h3>
+        <p>Soft and fluffy, available in chocolate or blueberry.</p>
+        <div class="price">UGX 5,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/bagel.png" alt="Bagel">
+        <h3>Bagel</h3>
+        <p>Toasted and served plain or with cream cheese.</p>
+        <div class="price">UGX 6,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/cookie.png" alt="cookie">
+        <h3>Cookie</h3>
+        <p>Freshly baked chocolate chip cookies warm, soft and chewy.</p>
+        <div class="price">UGX 3,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/cake.png" alt="Cake Slice">
+        <h3>Cake Slice</h3>
+        <p>Moist and rich flavors change daily.</p>
+        <div class="price">UGX 8,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/bread.png" alt="Banana Bread">
+        <h3>Banana Bread</h3>
+        <p>Moist, flavorful and packed with ripe bananas a perfect snack with your coffee.</p>
+        <div class="price">UGX 4,500</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/eclair.png" alt="Chocolate Eclair">
+        <h3>Chocolate Eclair</h3>
+        <p>Light pastry filled with cream and topped with chocolate glaze pure indulgence.</p>
+        <div class="price">UGX 5,000</div>
+      </article>
+    </section>
+
+        <section id="breakfast-menu">
+      <h2>Breakfast Menu</h2>
+      <article class="menu-item">
+        <img src="images/pancake.png" alt="Pancakes">
+        <h3>Pancakes</h3>
+        <p>Classic, blueberry, banana, chocolate & more.</p>
+        <div class="price">From UGX 12,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/waffles.png" alt="Waffles">
+        <h3>Waffles</h3>
+        <p>Classic, Belgian, chocolate chip or blueberry.</p>
+        <div class="price">From UGX 10,000</div>
+      </article>
+
+      <article class="menu-item">
+        <img src="images/french-toast.png" alt="French Toast">
+        <h3>French Toast</h3>
+        <p>Cinnamon, strawberry or savory a morning favorite!</p>
+        <div class="price">From UGX 11,500</div>
+      </article>
+    </section>
+
+
+    <p class="tip"><strong>Tip:</strong> Ask our baristas about daily specials or seasonal drinks you might discover a new favorite!</p>
+
+    <div class="order-now">
+        <a href="order.html" class="order-btn">Order Now</a>
+    </div>
+
+  </main>
+
+<footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Coffee Shop</h3>
+                <p>Experience the perfect blend of quality and comfort in every cup</p>
+            </div>
+
+            <div class="footer-social">
+                <a href="#"><img src="images/instagram-icon.png" alt="TikTok"></a>
+                <a href="#"><img src="images/tiktok-icon.png" alt="Instagram"></a>
+                <a href="#"><img src="images/x-icon.png" alt="X"></a>
+            </div>
+
+            <div class="footer-buttons">
+                <a href="contact.html" class="footer-btn primary">Reserve a Table</a>
+                <a href="order.html" class="footer-btn secondary">Order Now</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Coffee Shop. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

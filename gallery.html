@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COFFEE SHOP | Menu</title>
+  <style>
+    body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            background: url("images/gallery-bg.png") no-repeat center center fixed;
+            background-size: cover;
+            background-attachment: scroll;
+            color: #3A2E2A;
+          }
+
+          body::before {
+          content: "";
+          position: fixed;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%; 
+          height: 100%;
+          background: rgba(0, 0, 0, 0.55);
+          z-index: -1;
+        }
+
+          .container {
+            max-width: 1200px;
+            background: url("images/gallery-bg.png") no-repeat center center fixed;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            background-size: contain; 
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: auto;
+            padding: 20px;
+          }
+
+          header {
+            padding: 15px 30px;
+            background-color: #C8A27A;
+            position: relative;
+            margin: 0 auto;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+          }
+
+          nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+
+          .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .shop-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+          }
+
+          .logo {
+            height: 70px;
+          }
+
+          .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+          }
+
+          .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            position: relative;
+          }
+
+          .nav-links li a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background-color: #3A2E2A;
+            transition: width 0.3s;
+          }
+
+          .nav-links li a:hover::after {
+            width: 100%;
+          }
+
+            .dropdown {
+            position: relative;
+            }
+
+            .dropdown .dropbtn {
+            cursor: pointer;
+            display: inline-block;
+            }
+
+            .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #C8A27A; 
+            min-width: 200px;
+            top: 100%;
+            left: 0;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+            }
+
+            .dropdown-content li {
+            list-style: none;
+            }
+
+            .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            }
+
+            .dropdown-content a:hover {
+            background-color: #a6784d;
+            }
+
+            .dropdown:hover .dropdown-content {
+            display: block;
+            }
+
+            .dropdown:hover .dropbtn {
+            color: #3A2E2A;
+            transition: color 0.3s ease;
+            }
+
+
+            main {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 250, 245, 0.9);
+            border-radius: 12px;
+            z-index: 1;
+        }
+
+        main h2 {
+            font-size: 2rem;
+            color: #4a2c2a;
+            margin-bottom: 20px;
+            border-left: 6px solid #C8A27A;
+            padding-left: 12px;
+        }
+
+        .gallery-intro {
+        background: url("images/gallery1.png") no-repeat center center/cover;
+        height: 260px;
+        display: flex;
+        flex-direction: column;
+        background-attachment: fixed;
+        background-size: cover;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        max-width: 1100px;
+        min-height: 70vh;
+        margin: 20px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        margin-top: 40px;
+      }
+
+      .gallery-text {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px 30px;
+        border-radius: 8px;
+        color: #333;
+        display: inline-block;
+      }
+
+      .gallery-text a {
+        display: inline-block;
+        margin-top: 15px;
+        background: #8b5e3c;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+
+      .gallery-text a:hover {
+        background: #d4a373;
+      }
+
+      .gallery-text h1 {
+        margin: 0 0 10px;
+        font-size: 2rem;
+      }
+
+      .gallery-text p {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+        #cafe-interior, #events, #menu-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .interior-item {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .interior-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+      }
+
+      .interior-item::after{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(200, 162, 122, 0.1);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .interior-item:hover::after{
+        opacity: 1;
+      }
+
+    .interior-item img {
+        width: 100%;
+        max-width: 220px;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: transform 0.3s ease;
+      }
+
+    .interior-item:hover img {
+        transform: scale(1.05);
+      }
+
+    .interior-item h3 {
+        font-size: 1.3rem;
+        color: #3a2e2a;
+        margin: 10px 0;
+      }
+
+    .interior-item p {
+        font-size: 0.95rem;
+        color: #5a4740;
+        margin-bottom: 12px;
+      }
+
+      footer{
+            background: #A47148;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-left h3 {
+            color: #3A2E2A;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-top: 0;
+        }
+
+        .footer-left p {
+            color: #fff;
+            font-size: 0.9rem;
+            max-width: 300px;
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .footer-social img {
+            width: 45px;
+            height: 45px;
+            background: #C8A27A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            background: #E6B980;
+            transform: translateY(-3px);
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;    
+        }
+
+        .footer-btn {
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .footer-btn.primary {
+            background: transparent;
+            border: 2px solid #C8A27A;
+            color: #fff;
+        }
+
+        .footer-btn.primary:hover {
+            background: #3A2E2A;
+            color: #3A2E2A;
+        }
+
+        .footer-btn.secondary {
+            background: #C8A27A;
+            color: #fff;
+            border: 2px solid #C8A27A;
+        }
+
+        .footer-btn.secondary:hover {
+            background: #E6B980;
+            border-color: #E6B980;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            width: 100%;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 162, 122, 0.3);
+            margin-top: 20px;
+            color: #E6B980;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom p {
+            color: #fff;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .nav-links li a {
+            font-size: 1.1rem;
+        }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+
+            .footer-left p {
+                max-width: 100%;
+            }
+
+            .footer-buttons {
+                justify-content: center;
+            }
+        }
+  </style>
+  </head>
+
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Coffee Shop Logo" class="logo">
+        </a>
+        <span class="shop-name">THE COFFEE SHOP</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="about.html">ABOUT</a></li>
+
+        <li class="dropdown">
+        <a href="menu.html" class="drop-btn">MENU▼</a>
+        <ul class="dropdown-content">
+            <li><a href="menu.html#coffee-menu">Coffee</a></li>
+            <li><a href="menu.html#tea-menu">Tea</a></li>
+            <li><a href="menu.html#pastries-menu">Pastries</a></li>
+        </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="gallery.html" class="drop-btn">GALLERY▼</a>
+            <ul class="dropdown-content">
+                <li><a href="gallery.html#cafe-interior">Cafe Interior</a></li>
+                <li><a href="gallery.html#events">Events And Specials</a></li>
+                <li><a href="gallery.html#menu-highlights">Menu Highlights</a></li>
+            </ul>
+        </li>
+
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="order.html">ORDER NOW</a></li>
+      </ul>
+    </nav>
+  </header>
+
+      <section class="gallery-intro">
+      <div class="gallery-text">
+      <h1>Our Gallery</h1>
+      <p>Step inside <strong>The Coffee Shop</strong>, a cozy corner of Ugandan warmth. Our gallery captures the inviting interior, community events and mouth-watering menu highlights a place where every cup tells a story.</p>
+      </div>
+      </section>
+
+    <main>
+    <section id="cafe-interior">
+        <h2>Cafe Interior</h2>
+        <article class="interior-item">
+            <img src="images/im.png">
+            <h3>Peaceful Corner for Coffee Lovers</h3>
+            <p>A quiet seating area with comfortable chairs and soft light, perfect for reading, working or savoring your morning coffee.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/im1.png">
+            <h3>Fresh Brews</h3>
+            <p>The café counter showcases freshly brewed coffee and locally sourced pastries, inviting guests to explore our flavorful offerings.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/im2.png">
+            <h3>Barista's Touch</h3>
+            <p>A skilled barista prepares each coffee with care, turning every cup into a moment of delight.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/im3.png">
+            <h3>Morning Glow At Coffee Shop</h3>
+            <p>Sunlight streams through the large windows, highlighting the rich wooden counters and tropical greenery for a calm, inviting start to the day.</p>
+        </article>
+    </section>
+
+    <section id="events">
+        <h2>Events And Specials</h2>
+        <article class="interior-item">
+            <img src="images/cc.png">
+            <h3>Open Mic Evenings & Coffee</h3>
+            <p>Local talent shares music, poetry and stories creating a lively and inspiring community atmosphere.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/cc1.png">
+            <h3>Sweet Celebrations & Treats</h3>
+            <p>Special events highlighting Uganda's rich coffee culture and locally sourced ingredients.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/cc2.png">
+            <h3>Latte Art Show</h3>
+            <p>Watch as latte art comes to life, turning each cup into a creative masterpiece with your own under our barista's guide.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/cc3.png">
+            <h3>Pumpkin Spice Reason Returns</h3>
+            <p>Celebrate seasonal flavors with our limited-edition Pumpkin Spice drinks, crafted to warm your senses.</p>
+        </article>
+
+          <article class="interior-item">
+            <img src="images/cc4.png">
+            <h3>Live Music Evenings At The Cafe</h3>
+            <p>Enjoy soothing live music alongside expertly brewed coffee, making every evening memorable.</p>
+        </article>
+    </section>
+
+    <section id="menu-highlights">
+        <h2>Menu Highlights</h2>
+        <article class="interior-item">
+            <img src="images/dd.png">
+            <h3>Cappuccino and Croisants</h3>
+            <p>A creamy cappuccino paired with a golden croissant makes the perfect start to your day.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/dd1.png">
+            <h3>Chocolate Indulgence</h3>
+            <p>Moist chocolate cake paired with espresso a simple yet luxurious treat.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/dd2.png">
+            <h3>Sweet Comfort in a Cup</h3>
+            <p>Rich hot chocolate topped with whipped cream and muffins, served with a warm smile.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/dd3.png">
+            <h3>Freshly Baked Delight</h3>
+            <p>An assortment of muffins, banana bread, and cookies baked daily to delight every taste.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/dd4.png">
+            <h3>The Art of Pour Over Coffee</h3>
+            <p>Carefully brewed pour-over coffee that highlights the aroma and subtle flavors of our Ugandan beans.</p>
+        </article>
+
+        <article class="interior-item">
+            <img src="images/dd5.png">
+            <h3>Cool Brews for Warm Days</h3>
+            <p>Refreshing iced coffee drinks with glistening ice cubes to keep you cool while savoring rich flavors.</p>
+        </article>
+    </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <h3>The Coffee Shop</h3>
+                <p>Experience the perfect blend of quality and comfort in every cup</p>
+            </div>
+
+            <div class="footer-social">
+                <a href="#"><img src="images/instagram-icon.png" alt="TikTok"></a>
+                <a href="#"><img src="images/tiktok-icon.png" alt="Instagram"></a>
+                <a href="#"><img src="images/x-icon.png" alt="X"></a>
+            </div>
+
+            <div class="footer-buttons">
+                <a href="contact.html" class="footer-btn primary">Reserve a Table</a>
+                <a href="order.html" class="footer-btn secondary">Order Now</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 The Coffee Shop. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
