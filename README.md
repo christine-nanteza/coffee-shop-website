@@ -13,3 +13,6 @@ A full-stack coffee shop website built with PHP, MySQL and HTML/CSS using XAMPP.
 - MySQL / phpMyAdmin
 - HTML & CSS
 - XAMPP
+
+## Live Website
+https://christine-coffeeshop.kesug.com/home.html
